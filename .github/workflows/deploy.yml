@@ -2,7 +2,7 @@ name: Deploy SPA to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Asegúrate de que coincida con el nombre de tu rama ("main" o "master")
+    branches: ["main"] # Cambia a "master" si tu rama se llama master
 
 permissions:
   contents: read
@@ -30,8 +30,8 @@ jobs:
 
       - name: Compilar TypeScript
         run: |
-          npx typescript --version || npm install typescript -g
-          npx tsc
+          npm install -g typescript
+          tsc
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
