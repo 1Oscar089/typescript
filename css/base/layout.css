@@ -1,0 +1,47 @@
+/* Layout Principal con CSS Grid */
+.app-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;   /* Sidebar de 260px, Content toma el resto */
+    grid-template-rows: 60px 1fr;      /* Header de 60px de alto, Content toma el resto */
+    grid-template-areas:
+      "header  header"
+      "sidebar content";
+    min-height: 100vh;
+  }
+  
+  /* Región Superior (Encabezado) */
+  .app-header {
+    grid-area: header;
+    background-color: #1e293b;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  /* Región Lateral (Sidebar) */
+  .app-sidebar {
+    grid-area: sidebar;
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 24px 16px;
+    border-right: 1px solid #334155;
+  }
+  
+  /* Región Central de Contenido */
+  .app-content {
+    grid-area: content;
+    padding: 32px;
+    background-color: #f8fafc;
+    position: relative; /* Permite posicionar botones flotantes si se requiere */
+  }
+  
+  /* Clase opcional para un botón flotante en la esquina inferior derecha */
+  .btn-flotante-inferior {
+    position: absolute;
+    bottom: 80px;
+    right: 32px;
+    z-index: 100;
+  }
