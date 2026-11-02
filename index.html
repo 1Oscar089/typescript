@@ -1,131 +1,44 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UI & Animation Library</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/main.css">
-</head>
-
-<body>
-
-  <div id="sidebar-overlay" class="sidebar-overlay"></div>
-
-  <div class="app-layout">
-    <header class="app-header">
-      <div class="header-left">
-        <button id="menu-toggle" class="icon-btn menu-toggle-btn" aria-label="Abrir Menú">☰</button>
-        <div class="logo">
-          <span class="logo-icon">✦</span> UI Component Library
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="search-input" placeholder="Buscar por título o etiqueta...">
-        </div>
-        <button id="theme-toggle" class="icon-btn theme-toggle-btn" aria-label="Cambiar tema">
-          <span id="theme-icon">🌙</span>
-        </button>
-      </div>
-    </header>
-
-    <aside id="app-sidebar" class="app-sidebar">
-      <div class="sidebar-header">
-        <h3>Categorías</h3>
-        <button id="menu-close" class="icon-btn menu-close-btn">&times;</button>
-      </div>
-
-      <ul id="category-list" class="category-list">
-        <li class="active" data-category="todos"><span class="cat-icon">🌐</span> Todos</li>
-        <li data-category="botones"><span class="cat-icon">🔘</span> Botones & FABs</li>
-        <li data-category="loaders"><span class="cat-icon">⏳</span> Loaders & Spinners</li>
-        <li data-category="tarjetas"><span class="cat-icon">🎴</span> Tarjetas / Cards</li>
-        <li data-category="formularios"><span class="cat-icon">📝</span> Form Inputs</li>
-        <li data-category="modales"><span class="cat-icon">🪟</span> Modales & Popups</li>
-        <li data-category="navbars"><span class="cat-icon">🗺️</span> Navbars & Menús</li>
-        <li data-category="animaciones"><span class="cat-icon">✨</span> Animaciones CSS</li>
-        <li data-category="badges"><span class="cat-icon">🏷️</span> Badges & Tags</li>
-        <li data-category="tooltips"><span class="cat-icon">💬</span> Tooltips</li>
-        <li data-category="footers"><span class="cat-icon">🔻</span> Footers</li>
-      </ul>
-    </aside>
-
-
-    <main class="app-content">
-      <!-- Pon esto encima de tu div #grid-container en tu área principal -->
-      <div class="filters-header" style="display: flex; gap: 10px; margin-bottom: 20px; align-items: center;">
-        <span style="color: var(--md-sys-color-on-surface-variant); font-size: 14px;">Filtrar por Motor:</span>
-        <!-- Agregamos position: relative y un z-index para que flote sobre las tarjetas -->
-        <div id="engine-filter-wrapper" style="width: 250px; position: relative; z-index: 10;"></div>
-      </div>
-
-      <!-- (Aquí va tu #grid-container) -->
-      <div id="grid-container" class="cards-grid"></div>
-    </main>
-  </div>
-
-  <!-- Modal con Selector de Framework Destino y Controles -->
-  <div id="modal-container" class="modal-backdrop hidden">
-    <div class="modal-window">
-      <button id="modal-close" class="icon-btn modal-close-btn">&times;</button>
-
-      <div class="modal-header">
-        <h3 id="modal-title">Componente</h3>
-      </div>
-
-      <!-- Selector de Framework o Material para Generación de Código -->
-      <!-- Selectores de Exportación -->
-      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
-        <!-- Selector de Framework / Material Destino -->
-        <div class="framework-selector-section" style="flex: 1; min-width: 240px;">
-          <label class="framework-label">🎨 Framework CSS:</label>
-          <div id="framework-select-wrapper" class="custom-select-wrapper"></div>
-        </div>
-
-        <!-- Selector de Motor / Tecnología Destino -->
-        <div class="framework-selector-section" style="flex: 1; min-width: 240px;">
-          <label class="framework-label">⚙️ Motor (Engine):</label>
-          <div id="engine-select-wrapper" class="custom-select-wrapper"></div>
-        </div>
-      </div>
-
-      <!-- Panel de Controles de Personalización -->
-      <div id="modal-controls-section" class="modal-controls-section">
-        <div class="controls-header">
-          <h4>🎛️ Personalización en Vivo</h4>
-          <button id="btn-reset-controls" class="btn-reset">Restablecer</button>
-        </div>
-        <div id="controls-grid" class="controls-grid"></div>
-      </div>
-
-      <!-- Vista Previa -->
-      <div class="modal-preview">
-        <div id="preview-box" class="preview-box"></div>
-      </div>
-
-      <!-- Código Generado Listo para Copiar -->
-      <div class="modal-code">
-        <div class="tab-buttons">
-          <button class="tab-btn active" data-tab="html">HTML</button>
-          <button class="tab-btn" data-tab="css">CSS</button>
-          <button class="tab-btn" data-tab="js">JavaScript</button>
-          <button class="tab-btn" data-tab="ts">TypeScript</button>
-        </div>
-        <div class="tab-content">
-          <pre><code id="code-display"></code></pre>
-          <button id="btn-copy" class="btn-copy">📋 Copiar Código</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script type="module" src="./dist/main.js"></script>
-</body>
-
+<!--
+  NOTA DE ARQUITECTURA: este index.html vive en la RAÍZ del proyecto porque el
+  workflow de GitHub Pages (.github/workflows/deploy.yml) publica el repositorio
+  completo (upload-pages-artifact con path: '.') y Pages sirve el index.html del
+  directorio raíz. Los recursos estáticos (favicon, estilos del entorno) siguen
+  en /public y el JavaScript compilado por `tsc` se sirve desde /dist.
+-->
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generador de Componentes UI · Multi-Motor</title>
+    <meta
+      name="description"
+      content="Biblioteca viva de componentes UI parametrizables: busca, filtra por motor, previsualiza, personaliza y copia el código generado (DOM, SVG, Canvas 2D, WebGL, WebXR, videojuegos, WASM)."
+    />
+    <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+    <script>
+      // Aplica el tema ANTES de pintar para evitar el destello (FOUC):
+      // prioriza la preferencia guardada; si no existe, la del sistema.
+      (function () {
+        var saved = null;
+        try {
+          saved = localStorage.getItem('gcui-theme');
+        } catch (error) {
+          saved = null;
+        }
+        var theme =
+          saved === 'light' || saved === 'dark'
+            ? saved
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <link rel="stylesheet" href="./public/styles.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="./dist/main.js"></script>
+  </body>
 </html>
